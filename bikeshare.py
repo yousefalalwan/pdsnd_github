@@ -98,7 +98,7 @@ def time_stats(df):
     """
     most_month = df['month'].mode()[0]
     print()
-    print('The most common month is: ', most_month)
+    print('The chosen month is ', most_month)
     print()
 
     """ Note using print() as a space to make it more readable"""
