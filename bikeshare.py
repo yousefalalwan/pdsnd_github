@@ -20,7 +20,7 @@ def get_filters():
             print('The chosen city is: ', city)
             break
         else:
-            print('Opps, you entered a wrong city, please enter either new york city, chicago or washington') 
+            print('Opps, you entered a wrong city, please enter either new york city, chicago or washington')
             continue
     """ We are going to ask the user to enter a month or all to display all of the data through an interactive code"""
     while True:
@@ -33,7 +33,7 @@ def get_filters():
             print('display all of the months data')
             break
         else:
-            print('Please enter a correct month')
+            print('Ops, you entered a wrong month, please enter the right month')
             continue
 
 
