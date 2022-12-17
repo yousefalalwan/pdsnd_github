@@ -8,6 +8,8 @@ Replace the Project Title
 
 ### Description
 Describe what your project is about and what it does
+this project is a practice to help us learn how to use Github, to be able
+to work in teams. 
 
 ### Files used
 Include the files used
