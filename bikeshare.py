@@ -37,6 +37,7 @@ def get_filters():
             continue
 
 
+
     """ We are going to ask the user to enter a day or all to display the whole month through an interactive code"""
     while True:
         day = input('enter a day in such format all, monday, tuesday, ... sunday: ').lower()
@@ -47,9 +48,12 @@ def get_filters():
         elif day in days:
             print('display the data of: ', day.title())
             break
-        else:
-            print('Please enter a correct day')
+
+
+
+            print('Ops, you misspelled the day, please try again')
             continue
+
 
 
     print('-'*40)
@@ -96,10 +100,10 @@ def time_stats(df):
         display the most frequent month, day and hour that the bikes are being rented and used by
         the mode() function.
     """
-    most_month = df['month'].mode()[0]
+
+    print('The chosen month is ', most_month)
     print()
-    print('The most common month is: ', most_month)
-    print()
+
 
     """ Note using print() as a space to make it more readable"""
 
@@ -266,7 +270,7 @@ def raw_input(df):
     while True:
         answer = input('Would you like to see 5 lines of raw data? Enter yes or no: ')
         if answer.lower() == 'yes':
-            print(df.iloc[data:data+5, :])
+            print('The requested raw data is: \n'df.iloc[data:data+5, :])
             data += 5
         else:
             break
