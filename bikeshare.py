@@ -266,7 +266,7 @@ def raw_input(df):
     while True:
         answer = input('Would you like to see 5 lines of raw data? Enter yes or no: ')
         if answer.lower() == 'yes':
-            print(df.iloc[data:data+5, :])
+            print('The requested raw data is: \n'df.iloc[data:data+5, :])
             data += 5
         else:
             break
