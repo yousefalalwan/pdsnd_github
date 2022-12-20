@@ -1,0 +1,53 @@
+
+
+'Yousef Alalwan Project script'
+
+
+--Question 1: Write a query to find the name (first_name, last_name), country name,total spending and nb of rentals for customers who are united states citizens.
+
+SELECT CONCAT(cr.first_name, ' ', cr.last_name) AS fullname,
+       SUM(p.amount) AS total_spending,
+       COUNT(p.amount) AS  nb_of_payments,
+       co.country
+FROM customer cr
+JOIN address a ON cr.address_id = a.address_id
+JOIN city c ON c.city_id = a.city_id
+JOIN country co ON co.country_id = c.country_id
+JOIN payment p ON cr.customer_id = p.customer_id
+WHERE co.country IN (SELECT co.country FROM country co WHERE co.country IN ('United States'))
+GROUP BY fullname, co.country
+ORDER BY total_spending DESC, nb_of_payments DESC;
+
+--Question 2:We want to find out how the two stores compare in their count of rental orders during every month for all the years we have data for.Write a query that returns the store ID for the store, the year and month and the number of rental orders each store has fulfilled for that month.
+SELECT s.store_id
+       DATE_PART('YEAR',r.rental_date) AS rental_year,
+       DATE_PART('MONTH',r.rental_date) AS rental_month,
+       COUNT(r.rental_id) AS nb_of_rentals
+FROM store s
+JOIN staff sa ON s.store_id = sa.store_id
+JOIN payment p ON p.staff_id = sa.staff_id
+JOIN rental r ON r.rental_id = p.rental_id
+GROUP BY s.store_id,rental_year,rental_month
+ORDER BY 4 DESC;
+
+--Question 3: How many total payment each staff had issued?
+
+SELECT COUNT(p.payment_id) AS nb_sales,
+       CONCAT(s.last_name, ' ', s.first_name) AS staff_name
+FROM payment p
+JOIN staff s ON s.staff_id = p.staff_id
+GROUP BY staff_name;
+
+
+--Question 4: Finally, provide a table with the family-friendly film categoryf film category for each corresponding rental duration category.
+
+
+
+WITH t1 AS (SELECT f.title, f.rental_duration, c.name, NTILE(4) OVER(ORDER BY f.rental_duration) AS percentile
+            FROM film f
+            JOIN film_category fc ON fc.film_id = f.film_id
+            JOIN category c ON c.category_id = fc.category_id
+            WHERE c.name IN ('Animation','Children','Classics','Comedy','Family','Music'))
+SELECT  t1.name,t1.percentile, COUNT(t1.percentile) AS ct_perecntile
+FROM t1
+GROUP BY t1.name, t1.percentile
